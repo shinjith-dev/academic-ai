@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { DripsyProvider, makeTheme } from "dripsy";
 import AppNavigator from "./navigation/AppNavigator";
 
@@ -18,7 +17,6 @@ export default function App() {
   return (
     <DripsyProvider theme={theme}>
       <AppNavigator />
-      <StatusBar style="auto" />
     </DripsyProvider>
   );
 }
