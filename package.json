@@ -10,12 +10,8 @@
     "start": "react-native start",
     "test": "jest",
     "build:android": "react-native run-android --mode=release",
-    "check:android-build": "cd android && ./gradlew assembleDebug"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run check:android-build"
-    }
+    "check:android-build": "cd android && ./gradlew assembleDebug",
+    "prepare": "husky"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.10",
