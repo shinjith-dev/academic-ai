@@ -1,14 +1,20 @@
 import { DripsyProvider, H1, View, makeTheme } from "dripsy";
 import { StatusBar } from "expo-status-bar";
 import Dashboard from "./src/screens/Dashboard";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Topic from "./src/screens/Topic";
-
 
 const Stack = createNativeStackNavigator();
 
-const theme = makeTheme({});
+const theme = makeTheme({
+  colors: {
+    $text: "#000",
+    $background: "#fff",
+    $primary: "#a23c33",
+    $secondary: "#eee",
+  },
+});
 
 export default function App() {
   return (
@@ -16,7 +22,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Dashboard" component={Dashboard} />
-          <Stack.Screen name="Topic" component={Topic } />
+          <Stack.Screen name="Topic" component={Topic} />
         </Stack.Navigator>
       </NavigationContainer>
 
