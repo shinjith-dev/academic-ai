@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { DripsyProvider, H1, View, makeTheme } from "dripsy";
+import { StatusBar } from "expo-status-bar";
+import Dashboard from "./src/screens/Dashboard";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Topic from "./src/screens/Topic";
+
+
+const Stack = createNativeStackNavigator();
+
+const theme = makeTheme({});
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <DripsyProvider theme={theme}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Dashboard" component={Dashboard} />
+          <Stack.Screen name="Topic" component={Topic } />
+        </Stack.Navigator>
+      </NavigationContainer>
+
       <StatusBar style="auto" />
-    </View>
+    </DripsyProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
