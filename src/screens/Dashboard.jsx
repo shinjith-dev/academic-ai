@@ -1,6 +1,5 @@
 import { H3, Text, View, useDripsyTheme } from "dripsy";
 import React from "react";
-import { Button } from "react-native";
 import Topics from "../components/dashboard/Topics";
 
 const Dashboard = ({ navigation }) => {
@@ -30,7 +29,7 @@ const Dashboard = ({ navigation }) => {
         <Text>View all &gt;</Text>
       </View>
 
-      <Topics />
+      <Topics navigation={navigation} />
 
       {/* <Button title="Open topic" onPress={() => navigation.navigate("Topic")}>
         <Text>Open topic</Text>
