@@ -4,6 +4,8 @@ import Dashboard from "./src/screens/Dashboard";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Topic from "./src/screens/Topic";
+import Login from "./src/screens/Login";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,12 +21,15 @@ const theme = makeTheme({
 export default function App() {
   return (
     <DripsyProvider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Dashboard" component={Dashboard} />
-          <Stack.Screen name="Topic" component={Topic} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <RootSiblingParent>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Dashboard" component={Dashboard} />
+            <Stack.Screen name="Topic" component={Topic} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </RootSiblingParent>
 
       <StatusBar style="auto" />
     </DripsyProvider>

@@ -3,37 +3,37 @@ import React, { useEffect, useState } from "react";
 import { getSchedules } from "../../../lib/queries/dashboard";
 import { TouchableHighlight, TouchableOpacity } from "react-native";
 
-// const topics = [
-//   {
-//     Subject: "Engineering Chemistry",
-//     Task: "Electrochemical Cells and Redox Reactions",
-//     StudyTime: 3,
-//   },
-//   {
-//     Subject: "Linear Algebra and Calculus",
-//     Task: "Half Range Sine and Cosine Series, Parseval’s Theorem",
-//     StudyTime: 3,
-//   },
-//   {
-//     Subject: "Engineering Chemistry",
-//     Task: "Introduction to Spectroscopic Techniques and Types of Spectrum",
-//     StudyTime: 3,
-//   },
-//   {
-//     Subject: "Linear Algebra and Calculus",
-//     Task: "Double Integrals (Cartesian)",
-//     StudyTime: 3,
-//   },
-// ];
+const topics = [
+  {
+    Subject: "Engineering Chemistry",
+    Task: "Electrochemical Cells and Redox Reactions",
+    StudyTime: 3,
+  },
+  {
+    Subject: "Linear Algebra and Calculus",
+    Task: "Half Range Sine and Cosine Series, Parseval’s Theorem",
+    StudyTime: 3,
+  },
+  {
+    Subject: "Engineering Chemistry",
+    Task: "Introduction to Spectroscopic Techniques and Types of Spectrum",
+    StudyTime: 3,
+  },
+  {
+    Subject: "Linear Algebra and Calculus",
+    Task: "Double Integrals (Cartesian)",
+    StudyTime: 3,
+  },
+];
 
 const Topics = ({ navigation }) => {
-  const [topics, setTopics] = useState([]);
+  // const [topics, setTopics] = useState([]);
 
   useEffect(() => {
     getSchedules()
       .then((data) => {
         console.log(data);
-        setTopics(data);
+        // setTopics(data);
       })
       .catch((err) => {
         console.log(err);
