@@ -1,21 +1,14 @@
 import { H3, Text, View, useDripsyTheme } from "dripsy";
 import React from "react";
 import Topics from "../components/dashboard/Topics";
+import Stats from "../components/dashboard/Stats";
 
 const Dashboard = ({ navigation }) => {
   const { theme } = useDripsyTheme();
 
   return (
     <View sx={{ flex: 1, justifyContent: "center " }}>
-      <View
-        sx={{
-          height: 280,
-          width: "100%",
-          backgroundColor: "lightgray",
-        }}
-      >
-        <Text>Stats</Text>
-      </View>
+      <Stats />
       <View
         sx={{
           justifyContent: "space-between",

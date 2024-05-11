@@ -2,6 +2,7 @@ import { Text, View } from "dripsy";
 import React, { useEffect, useState } from "react";
 import { getSchedules } from "../../../lib/queries/dashboard";
 import { TouchableHighlight, TouchableOpacity } from "react-native";
+import { convertMins } from "../../../lib/functions/fns";
 
 const topics = [
   {
@@ -36,6 +37,8 @@ const Topics = ({ navigation }) => {
         // setTopics(data);
       })
       .catch((err) => {
+
+
         console.log(err);
       });
   }, []);
@@ -63,7 +66,7 @@ const Topics = ({ navigation }) => {
               sx={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <Text>{topic.Subject}</Text>
-              <Text>{topic.StudyTime} Hrs</Text>
+              <Text>{convertMins(topic.StudyTime).hours} Hrs {convertMins(topic.StudyTime).minutes} Mins</Text>
             </View>
           </View>
         </TouchableOpacity>

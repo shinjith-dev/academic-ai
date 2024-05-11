@@ -1,12 +1,10 @@
 import { Box, View } from "dripsy";
-import React, { useState } from "react";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Button, Text } from "react-native";
+import { Button, Text, ToastAndroid } from "react-native";
 import { FormItem, Label } from "react-native-form-component";
-import Toast from "react-native-root-toast";
 
 const Login = ({ navigation }) => {
-  const [toast, setToast] = useState("");
   const {
     control,
     handleSubmit,
@@ -19,17 +17,12 @@ const Login = ({ navigation }) => {
   });
 
   const onSubmit = (data) => {
-    if (data.username === "shinjith" && data.password === "pass") {
-      setToast("Successfully logged in");
-      setTimeout(() => {
-        setToast("");
-      }, 1000);
+    if (data.username === "User" && data.password === "Pass") {
       navigation.navigate("Dashboard");
+      ToastAndroid.show(`Logged in as ${data.username}`, ToastAndroid.SHORT);
     } else {
-      setToast("Incorrect credentials");
-      setTimeout(() => {
-        setToast("");
-      }, 1000);
+      // setToast("Incorrect credentials");
+      ToastAndroid.show("Incorrect credentials", ToastAndroid.SHORT);
     }
   };
 
@@ -74,16 +67,6 @@ const Login = ({ navigation }) => {
           {errors.password && <Text>{errors.password.message}</Text>}
         </Box>
       </Box>
-
-      <Toast
-        visible={Boolean(toast)}
-        position={120}
-        shadow
-        animation
-        hideOnPress={true}
-      >
-        {toast}
-      </Toast>
     </View>
   );
 };

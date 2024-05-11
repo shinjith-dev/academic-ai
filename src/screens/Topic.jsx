@@ -1,24 +1,31 @@
 import { Box, H2, ScrollView, Text, View } from "dripsy";
 import React, { useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
-import { Button } from "react-native";
 import SecondaryButton from "../components/common/SecondaryButton";
-import { MarkdownView } from "react-native-markdown-view";
+import { GEMINI_API_KEY } from "../../lib/config";
+import StopwatchButton from "../components/topic/StopwatchButton";
+import FAB from "../components/common/FAB";
+import Markdown, { MarkdownIt } from "react-native-markdown-display";
+import markdownItKatex from "@iktakahiro/markdown-it-katex";
+import markdownItMath from "markdown-it-math";
+import markdownItMathJax3 from "markdown-it-mathjax3";
+
+const markdownItInstance = MarkdownIt({ typographer: true })
+  .use(markdownItKatex)
+  // .use(markdownItMath)
+  .use(markdownItMathJax3);
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // Access your API key as an environment variable (see "Set up your API key" above)
-const genAI = new GoogleGenerativeAI("AIzaSyAw58IJOzBoPTQOCzEH0Mtm4GACc8bR7Zw");
+const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
-// ...
-
-// ...
-
-// const secondaryButton = {{back}}
+console.log(GEMINI_API_KEY);
 
 const Topic = ({ route, navigation }) => {
   const topic = route.params;
   const [description, setDesc] = useState("");
+  const [stopwatch, setStopwatch] = useState(false);
 
   useEffect(() => {
     // For text-only input, use the gemini-pro model
@@ -38,10 +45,10 @@ const Topic = ({ route, navigation }) => {
   console.log(topic);
 
   return (
-    <View sx={{ flex: 1, p: 8 }}>
-      <H2>{topic.Task}</H2>
-      <View sx={{ flex: 1 }}>
-        <Box sx={{ gap: 4, flexDirection: "row", alignItems: "center" }}>
+    <View sx={{ flex: 1, p: 12, position: "relative" }}>
+      <Box sx={{ mb: 8, flex: 1 }}>
+        <H2>{topic.Task}</H2>
+        <Box sx={{ gap: 4, flexDirection: "row", alignItems: "center", mb: 4 }}>
           <AntDesign name="star" size={14} color="green" />
           <Text sx={{ color: "green", fontWeight: "medium" }}>
             Important topic
@@ -49,22 +56,28 @@ const Topic = ({ route, navigation }) => {
           <Text sx={{ fontWeight: "bold" }}> - {topic.Subject}</Text>
         </Box>
 
-        <ScrollView sx={{my:4}}>
-          <MarkdownView>{description}</MarkdownView>
+        <ScrollView>
+          <Markdown markdownit={markdownItInstance}>{description}</Markdown>
         </ScrollView>
-      </View>
-      <Box sx={{ gap: 6 }}>
-        <SecondaryButton title="Skip this topic">
-          <AntDesign name="staro" size={14} color="black" />{" "}
-          <Text>Mark as important</Text>
-        </SecondaryButton>
-        <SecondaryButton title="Skip this topic">
-          <Text>Skip this topic</Text>
-        </SecondaryButton>
-        <Button title="Mark as completed">
-          <Text>Mark as completed</Text>
-        </Button>
+        <FAB>
+          <AntDesign name="staro" size={16} color="green" />
+        </FAB>
       </Box>
+      <Box sx={{ my: 8 }}>
+        <StopwatchButton updateStatus={(status) => setStopwatch(status)} />
+      </Box>
+      {!stopwatch && (
+        <>
+          <Box sx={{ gap: 6, flexDirection: "row" }}>
+            <SecondaryButton title="Skip this topic" style={{ flexGrow: 1 }}>
+              <Text>Skip this topic</Text>
+            </SecondaryButton>
+            <SecondaryButton style={{ flexGrow: 1 }}>
+              <Text>Mark as completed</Text>
+            </SecondaryButton>
+          </Box>
+        </>
+      )}
     </View>
   );
 };
