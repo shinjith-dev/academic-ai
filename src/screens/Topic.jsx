@@ -9,60 +9,59 @@ import Markdown, { MarkdownIt } from "react-native-markdown-display";
 import markdownItKatex from "@iktakahiro/markdown-it-katex";
 import markdownItMath from "markdown-it-math";
 import markdownItMathJax3 from "markdown-it-mathjax3";
+import { ActivityIndicator } from "react-native";
 
 const markdownItInstance = MarkdownIt({ typographer: true })
   .use(markdownItKatex)
-  // .use(markdownItMath)
   .use(markdownItMathJax3);
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Access your API key as an environment variable (see "Set up your API key" above)
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-
-console.log(GEMINI_API_KEY);
 
 const Topic = ({ route, navigation }) => {
   const topic = route.params;
   const [description, setDesc] = useState("");
   const [stopwatch, setStopwatch] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    // For text-only input, use the gemini-pro model
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
     const prompt = topic.Task ?? "";
 
     model
       .generateContent(prompt)
       .then((result) => result.response)
-      .then((res) => setDesc(res.text()))
+      .then((res) => {
+        setDesc(res.text());
+        setLoading(false);
+      })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  console.log(topic);
-
   return (
     <View sx={{ flex: 1, p: 12, position: "relative" }}>
-      <Box sx={{ mb: 8, flex: 1 }}>
-        <H2>{topic.Task}</H2>
-        <Box sx={{ gap: 4, flexDirection: "row", alignItems: "center", mb: 4 }}>
-          <AntDesign name="star" size={14} color="green" />
-          <Text sx={{ color: "green", fontWeight: "medium" }}>
-            Important topic
-          </Text>
-          <Text sx={{ fontWeight: "bold" }}> - {topic.Subject}</Text>
-        </Box>
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#3b5bdb" />
+      ) : (
+        <Box sx={{ mb: 8, flex: 1 }}>
+          <H2>{topic.Task}</H2>
+          <Box sx={{ gap: 4, flexDirection: "row", alignItems: "center", mb: 4 }}>
+            <AntDesign name="star" size={14} color="#2b8a3e" />
+            <Text sx={{ color: "green", fontWeight: "medium" }}>Important topic</Text>
+            <Text sx={{ fontWeight: "bold" }}> - {topic.Subject}</Text>
+          </Box>
 
-        <ScrollView>
-          <Markdown markdownit={markdownItInstance}>{description}</Markdown>
-        </ScrollView>
-        <FAB>
-          <AntDesign name="staro" size={16} color="green" />
-        </FAB>
-      </Box>
+          <ScrollView>
+            <Markdown markdownit={markdownItInstance}>{description}</Markdown>
+          </ScrollView>
+          <FAB>
+            <AntDesign name="staro" size={16} color="green" />
+          </FAB>
+        </Box>
+      )}
       <Box sx={{ my: 8 }}>
         <StopwatchButton updateStatus={(status) => setStopwatch(status)} />
       </Box>

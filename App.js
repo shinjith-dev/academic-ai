@@ -25,7 +25,7 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen
             options={{ headerBackVisible: false }}
-            name="Dashboard"
+            name="Academic AI"
             component={Dashboard}
           />
           <Stack.Screen name="Topic" component={Topic} />

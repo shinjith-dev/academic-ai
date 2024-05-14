@@ -2,7 +2,7 @@ import { Box, Text, View } from "dripsy";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-const Stats = () => {
+const Stats = ({ username }) => {
   return (
     <View
       sx={{
@@ -17,7 +17,7 @@ const Stats = () => {
       <Box
         sx={{
           position: "absolute",
-          top: 40,
+          top: 20,
           right: 20,
           borderRadius: 25,
           borderWidth: 1,
@@ -43,6 +43,8 @@ const Stats = () => {
       </Box>
 
       <Box>
+        <Text sx={{ fontSize: 18, fontWeight: 500 }}>Hello {username}!</Text>
+
         <Box sx={{ flexDirection: "row", alignItems: "baseline", gap: 1 }}>
           <Text sx={{ fontSize: 92, fontWeight: 700 }}>38</Text>
           <Text sx={{ fontSize: 20, fontWeight: 700 }}>%</Text>

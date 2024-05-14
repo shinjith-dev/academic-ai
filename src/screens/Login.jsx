@@ -3,6 +3,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button, Text, ToastAndroid } from "react-native";
 import { FormItem, Label } from "react-native-form-component";
+import storage from "../../lib/storage";
 
 const Login = ({ navigation }) => {
   const {
@@ -17,8 +18,19 @@ const Login = ({ navigation }) => {
   });
 
   const onSubmit = (data) => {
-    if (data.username === "User" && data.password === "Pass") {
-      navigation.navigate("Dashboard");
+    if (data.password === "Pass") {
+      storage.save({
+        key: "loginUser", // Note: Do not use underscore("_") in key!
+        data: {
+          username: data.username,
+          password: data.password,
+        },
+
+        // if expires not specified, the defaultExpires will be applied instead.
+        // if set to null, then it will never expire.
+        expires: null,
+      });
+      navigation.navigate("Academic AI");
       ToastAndroid.show(`Logged in as ${data.username}`, ToastAndroid.SHORT);
     } else {
       // setToast("Incorrect credentials");
@@ -32,13 +44,13 @@ const Login = ({ navigation }) => {
         <Controller
           control={control}
           name="username"
-          rules={{ required: "Username is required" }}
+          rules={{ required: "Register number is required" }}
           render={({ field }) => (
             <FormItem
               {...field}
               onChangeText={field.onChange}
-              label="Username"
-              placeholder="Enter your username"
+              label="Register number"
+              placeholder="Enter your KTU register number"
             />
           )}
         />

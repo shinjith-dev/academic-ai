@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
-    backgroundColor: "lightgray",
+    backgroundColor: "#ebfbee",
     width: 40,
     height: 40,
     borderRadius: 25,
