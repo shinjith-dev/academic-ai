@@ -1,7 +1,11 @@
 import { Box, Text, View } from "dripsy";
 import React, { useEffect, useState } from "react";
 import { getSchedules } from "../../../lib/queries/dashboard";
-import { ActivityIndicator, TouchableHighlight, TouchableOpacity } from "react-native";
+import {
+  ActivityIndicator,
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native";
 import { convertMins } from "../../../lib/functions/fns";
 import storage from "../../../lib/storage";
 
@@ -59,12 +63,12 @@ const Topics = ({ navigation }) => {
     <View sx={{ flex: 1, gap: 4 }}>
       {isLoading && (
         <Box sx={{ justifyContent: "center" }}>
-          <ActivityIndicator size="large"/>
+          <ActivityIndicator size="large" />
         </Box>
       )}
       {topics.map((topic) => (
         <TouchableOpacity
-          key={topic.course_code}
+          key={topic.Task}
           onPress={() => navigation.navigate("Topic", topic)}
         >
           <View

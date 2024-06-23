@@ -43,25 +43,29 @@ const Topic = ({ route, navigation }) => {
 
   return (
     <View sx={{ flex: 1, p: 12, position: "relative" }}>
-      {isLoading ? (
-        <ActivityIndicator size="large" color="#3b5bdb" />
-      ) : (
-        <Box sx={{ mb: 8, flex: 1 }}>
-          <H2>{topic.Task}</H2>
-          <Box sx={{ gap: 4, flexDirection: "row", alignItems: "center", mb: 4 }}>
-            <AntDesign name="star" size={14} color="#2b8a3e" />
-            <Text sx={{ color: "green", fontWeight: "medium" }}>Important topic</Text>
-            <Text sx={{ fontWeight: "bold" }}> - {topic.Subject}</Text>
-          </Box>
-
-          <ScrollView>
-            <Markdown markdownit={markdownItInstance}>{description}</Markdown>
-          </ScrollView>
-          <FAB>
-            <AntDesign name="staro" size={16} color="green" />
-          </FAB>
+      <Box sx={{ mb: 8, flex: 1 }}>
+        <H2>{topic.Task}</H2>
+        <Box sx={{ gap: 4, flexDirection: "row", alignItems: "center", mb: 4 }}>
+          <AntDesign name="star" size={14} color="#2b8a3e" />
+          <Text sx={{ color: "green", fontWeight: "medium" }}>
+            Important topic
+          </Text>
+          <Text sx={{ fontWeight: "bold" }}> - {topic.Subject}</Text>
         </Box>
-      )}
+
+        <ScrollView>
+          {isLoading && (
+            <Box sx={{ py: 16 }}>
+
+              <ActivityIndicator size="large" color="#3b5bdb" />
+            </Box>
+          )}
+          <Markdown markdownit={markdownItInstance}>{description}</Markdown>
+        </ScrollView>
+        <FAB>
+          <AntDesign name="staro" size={16} color="green" />
+        </FAB>
+      </Box>
       <Box sx={{ my: 8 }}>
         <StopwatchButton updateStatus={(status) => setStopwatch(status)} />
       </Box>
